@@ -10,6 +10,7 @@ TagManager:
   - Audio
   - obstacle
   - Obstacle
+  - Ground
   layers:
   - Default
   - TransparentFX
