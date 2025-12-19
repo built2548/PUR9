@@ -197,8 +197,8 @@ MonoBehaviour:
   laserSource: {fileID: 1472359109479840008}
   deathSource: {fileID: 3283686367897434656}
   hitSource: {fileID: 1377211671226855855}
-  lives: 3
-  pointsOnDeath: 500
+  lives: 5
+  pointsOnDeath: 650
   currentState: 0
   moveSpeed: 3
   patrolDistance: 5

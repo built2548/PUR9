@@ -330,7 +330,7 @@ public class Puri_Script : MonoBehaviour
             if (attempts <= 0)
             {
                 Debug.Log("GAME OVER - NO ATTEMPTS LEFT!");
-                // SceneManager.LoadScene("GameOverScene"); 
+                SceneManager.LoadScene("GameOverScene"); 
                 yield break;
             }
 
