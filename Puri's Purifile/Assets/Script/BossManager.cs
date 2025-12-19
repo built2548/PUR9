@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class BossManager : MonoBehaviour
 {
+    [Header("Movement")]
+[SerializeField] private float moveSpeed = 3f;
+private Transform player;
     [Header("Attack Settings")]
     [SerializeField] private float attackCooldown = 3f;
     private float nextAttackTime;
@@ -13,35 +16,70 @@ public class BossManager : MonoBehaviour
 
     [Header("Phase Control")]
     public int currentPhase = 1;
+    [Header("Shooting")]
+[SerializeField] private GameObject projectilePrefab;
+[SerializeField] private Transform firePoint;
+
 
     private HealthBar bossHealthBar;
     private Animator anim;
     private Rigidbody2D rb; // Declared here
+
+    public void Shoot() // This MUST be public
+{
+    if (isDead) return;
+    Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+}
 
     void Start()
     {
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>(); // Assigned here
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         bossHealthBar = GetComponentInChildren<HealthBar>();
         if (bossHealthBar != null) bossHealthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
-    void Update()
+ void Update()
+{
+    if (isDead || player == null) return;
+
+    // 1. Check if we are currently attacking
+    AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+    if (stateInfo.IsTag("Attack")) 
     {
-        if (isDead) return;
-
-        // Use rb.velocity if rb.linearVelocity gives an error
-        float currentSpeed = Mathf.Abs(rb.linearVelocity.x);
-        anim.SetFloat("Speed", currentSpeed);
-
-        if (Time.time >= nextAttackTime)
-        {
-            ChooseRandomAttack();
-            nextAttackTime = Time.time + attackCooldown;
-        }
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        return; 
     }
+
+    // 2. Move toward player
+    float direction = Mathf.Sign(player.position.x - transform.position.x);
+    float distance = Vector2.Distance(transform.position, player.position);
+
+    if (distance > 3f) // Only walk if far away
+    {
+        rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
+        
+        // Flip the boss to face player
+        transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+    }
+    else 
+    {
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+    }
+
+    // 3. Update Animator Speed
+    anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+
+    // 4. Attack Timer
+    if (Time.time >= nextAttackTime)
+    {
+        ChooseRandomAttack();
+        nextAttackTime = Time.time + attackCooldown;
+    }
+}
 
     void ChooseRandomAttack()
     {

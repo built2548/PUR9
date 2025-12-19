@@ -12543,7 +12543,6 @@ GameObject:
   - component: {fileID: 1863467771}
   - component: {fileID: 1863467770}
   - component: {fileID: 1863467772}
-  - component: {fileID: 1863467773}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -12722,25 +12721,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbd450ff1e8170418d9e5a0c36a859c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossManager
+  moveSpeed: 3
   attackCooldown: 3
   maxHealth: 20
   isDead: 0
   currentPhase: 1
---- !u!114 &1863467773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863467766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9663d40b5eee94ea6a8c583be8b69a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FinalBoss
-  maxHealth: 20
-  speedPhase1: 2
-  speedPhase3: 6
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
 --- !u!1 &1976107882
 GameObject:
   m_ObjectHideFlags: 0
