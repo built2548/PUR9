@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 8
   damageAmount: 1
-  lifetime: 1
+  lifetime: 0.7
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
