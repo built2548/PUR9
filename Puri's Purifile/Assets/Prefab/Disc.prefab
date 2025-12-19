@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectile
   speed: 12
   damageAmount: 2
-  lifetime: 1
+  lifetime: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
